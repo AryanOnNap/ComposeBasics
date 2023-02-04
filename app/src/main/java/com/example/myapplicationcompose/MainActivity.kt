@@ -1,14 +1,12 @@
 package com.example.myapplicationcompose
 
 import android.content.res.Configuration
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.Image
@@ -18,7 +16,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.*
+import androidx.compose.material.SnackbarDefaults.backgroundColor
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 
@@ -34,7 +37,30 @@ class MainActivity : ComponentActivity () {
         super . onCreate (savedInstanceState)
         setContent {
             MyApplicationComposeTheme {
-                Conversation(SampleData.conversationSample)
+                Scaffold(topBar = {
+                    TopAppBar(title = {
+                        Text(text = "TOP BAR")
+                    }, backgroundColor = MaterialTheme.colors.error, contentColor = MaterialTheme.colors.primary,
+                        navigationIcon = { IconButton(
+                        onClick = {}){
+                        Icon(Icons.Filled.Menu,contentDescription = "Menu")
+                    }
+                        
+
+
+                    })
+
+                },floatingActionButton = { IconButton(onClick = { })
+                {
+
+                }) {
+                    
+                }})
+            }
+
+                    
+
+//                Conversation(SampleData.conversationSample)
             }
 //            MessageCard(message )
         }
@@ -49,7 +75,12 @@ data class Message(val author: String, val body: String)
 //        }
 //    }
 //}
+data class City(val name: String, val country: String)
 
+val CitySaver = listSaver<City, Any>(
+    save = { listOf(it.name, it.country) },
+    restore = { City(it[0] as String, it[1] as String) }
+)
 
 @Composable
 fun Conversation(messages: List<Message>) {
@@ -90,7 +121,9 @@ fun MessageCard (msg : Message) {
             shape = MaterialTheme.shapes.medium,
             elevation = 1.dp,
             color = surfaceColor,
-            modifier = Modifier.animateContentSize().padding(1.dp)
+            modifier = Modifier
+                .animateContentSize()
+                .padding(1.dp)
         ) {
 
 
@@ -126,12 +159,12 @@ fun PreviewConversation() {
 
 
 
-@Preview( uiMode = Configuration.UI_MODE_NIGHT_YES,
-        showBackground = true,
-        name = "Dark Mode")
-    @Composable
-    fun PreviewMessageCard() {
-        var message = Message("I am","developer")
-        MessageCard(message)
-    }
+//@Preview( uiMode = Configuration.UI_MODE_NIGHT_YES,
+//        showBackground = true,
+//        name = "Dark Mode")
+//    @Composable
+//    fun PreviewMessageCard() {
+//        var message = Message("I am","developer")
+//        MessageCard(message)
+//    }
 
