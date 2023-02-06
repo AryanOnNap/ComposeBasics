@@ -1,6 +1,8 @@
 package com.example.myapplicationcompose
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.graphics.Color
 import android.graphics.drawable.Icon
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,11 +21,16 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,29 +40,45 @@ import com.example.myapplicationcompose.ui.theme.MyApplicationComposeTheme
 class MainActivity : ComponentActivity () {
     var message = Message("I am","developer")
     var img = R.drawable.girls_dp;
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate (savedInstanceState: Bundle?) {
         super . onCreate (savedInstanceState)
         setContent {
             MyApplicationComposeTheme {
                 Scaffold(topBar = {
                     TopAppBar(title = {
-                        Text(text = "TOP BAR")
+                        Text(text = "TOP BAR", color = androidx.compose.ui.graphics.Color.Black)
                     }, backgroundColor = MaterialTheme.colors.error, contentColor = MaterialTheme.colors.primary,
                         navigationIcon = { IconButton(
                         onClick = {}){
-                        Icon(Icons.Filled.Menu,contentDescription = "Menu")
+                        Icon(    imageVector = ImageVector.vectorResource(id = R.drawable.baseline_menu_24),
+                            contentDescription = "Menu",)
                     }
                         
 
 
+                    },
+                    actions = {
+                        IconButton(onClick = { /*TODO*/ }) {Icon(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_notifications_24),contentDescription = "noti",)
+
+                        }
+                        IconButton(onClick = { /*TODO*/ }) {Icon(imageVector = ImageVector.vectorResource(id = R.drawable.baseline_search_24)
+                            , contentDescription = "Search")
+
+                        }
                     })
 
-                },floatingActionButton = { IconButton(onClick = { })
-                {
+                },floatingActionButton = {
+                    IconButton(onClick = { }) {
+                        Icon(Icons.Filled.Add, contentDescription = "floatButton")
+                    };
+                }, floatingActionButtonPosition = FabPosition.End) {Conversation(SampleData.conversationSample)
+                }
 
-                }) {
+
                     
-                }})
+                }
+        }
             }
 
                     
@@ -63,9 +86,9 @@ class MainActivity : ComponentActivity () {
 //                Conversation(SampleData.conversationSample)
             }
 //            MessageCard(message )
-        }
-    }
-}
+
+
+
 data class Message(val author: String, val body: String)
 //@Composable
 //fun Conversation(messages: List<Message>) {
