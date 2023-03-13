@@ -12,7 +12,17 @@
         android:theme="@style/Theme.MyApplicationCompose"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".RrcyclerViewActivity"
+            android:exported="false"
+            android:label="@string/title_activity_rrcycler_view"
+            android:theme="@style/Theme.MyApplicationCompose" />
+        <activity
+            android:name=".RecyclerViewActivity"
+            android:exported="false"
+            android:label="@string/title_activity_recycler_view"
+            android:theme="@style/Theme.MyApplicationCompose" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyApplicationCompose">
