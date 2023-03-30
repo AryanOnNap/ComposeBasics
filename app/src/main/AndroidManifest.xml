@@ -18,28 +18,32 @@
             android:label="@string/title_activity_rrcycler_view"
             android:theme="@style/Theme.MyApplicationCompose" />
         <activity
-            android:name=".RecyclerViewActivity"
-            android:exported="false"
-            android:label="@string/title_activity_recycler_view"
-            android:theme="@style/Theme.MyApplicationCompose" />
+
+
+            android:name=".DiagramBox"
+            android:exported="true"
+            android:label="DiagramBox"
+            android:theme="@style/Theme.MyApplicationCompose">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
             <activity
             android:name=".TodoActivity"
             android:exported="true"
             android:label="Compose todo"
-            android:theme="@style/Theme.MyApplicationCompose">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/Theme.MyApplicationCompose"/>
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+
         <activity
             android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MyApplicationCompose">
+            android:theme="@style/Theme.MyApplicationCompose"/>
 
-        </activity>
+
     </application>
 
 </manifest>
