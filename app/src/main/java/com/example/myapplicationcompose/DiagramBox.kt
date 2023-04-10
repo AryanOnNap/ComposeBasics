@@ -1,5 +1,6 @@
 package com.example.myapplicationcompose
 
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,6 +9,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,12 +28,16 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplicationcompose.data.dummyData
 import com.example.myapplicationcompose.navigation.NavigationScreen
+import com.example.myapplicationcompose.navigation.StartNavigation
 import com.example.myapplicationcompose.ui.theme.MyApplicationComposeTheme
+import com.example.myapplicationcompose.util.ErrorUtils
 
 open class DiagramBox : ComponentActivity() {
 
@@ -45,8 +52,9 @@ open class DiagramBox : ComponentActivity() {
                     color = MaterialTheme.colors.background
 
                 ) {
+                    StartNavigation()
 //                    recyclerView(users = dummyData() )
-                    Greetings(str = "How are you")
+//                    Greetings(str = "How are you")
 //                    eachRow("Android")
                 }
             }
@@ -56,6 +64,12 @@ open class DiagramBox : ComponentActivity() {
     @Composable
     fun Greetings( str : String,navHostController: NavHostController){
         val mCounter = remember { mutableStateOf(0)}
+        var state = remember {
+            mutableStateOf("")
+        }
+//        val colorTheme = colorResource(id = android.R.color.holo_red_light);
+        val colorTheme = "colors";
+        ErrorUtils.showLogs("DiagramBox","Greetings color is::"+colorTheme)
 
             Column(
                 modifier = Modifier
@@ -77,43 +91,36 @@ open class DiagramBox : ComponentActivity() {
 
 
             {
+Text(text = "Month List", modifier = Modifier
+    .fillMaxWidth()
+    .weight(.6f)
+    .align(Alignment.CenterHorizontally)
+    .background(color = Color.Transparent, shape = RectangleShape).padding(0.dp,0.dp,0.dp,0.dp), color = Color.Gray, textAlign = TextAlign.Center, fontSize = 70.sp)
+                Spacer(modifier = Modifier.height (20.dp))
+                OutlinedTextField(value = state.value, onValueChange ={
+                   state.value = it
+                } , modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(
+                        0.2F
+                    ))
                 Card(
 //                    onClick = {navHostController.navigate(NavigationScreen.calenderView.route},
                     modifier = Modifier
-                    .fillMaxWidth()
-                        .clickable(
-                            interactionSource = interactionSource,
-                            indication = LocalIndication.current,
-                            onClick = { /** doSomething() **/}
-                        )
-//                    .background(
-//                        Brush.horizontalGradient(
-//                            colors = listOf(
-//                                Color.Cyan,
-//                                Color.Transparent
-//                            ),
+                        .fillMaxWidth()
+                        .clickable(onClick = { navHostController.navigate(NavigationScreen.calenderView.route + "/$colorTheme") })
 //
-//                            )
-//                    )
-                    .clip(RoundedCornerShape(60.dp))
-                    .border(3.dp, color = Color.Transparent, shape = RoundedCornerShape(60.dp))
-                    .padding(10.dp)
-                    .weight(1f), elevation = 10.dp)
+                        .clip(RoundedCornerShape(60.dp))
+                        .border(3.dp, color = Color.Transparent, shape = RoundedCornerShape(60.dp))
+                        .padding(10.dp)
+                        .weight(1f), elevation = 10.dp)
 
 
 
                 {
                     Image(painter = painterResource(id = R.drawable.winter), contentDescription ="Image", contentScale = ContentScale.Crop, modifier = Modifier
                         .fillMaxHeight()
-//                        .background(
-//                            Brush.horizontalGradient(
-//                                colors = listOf(
-//                                    Color.Magenta,
-//                                    Color.Green
-//                                )
 //
-//                                )
-//                        )
                     )
                     Text(
                         text = "January", color = Color.Red, modifier = Modifier
@@ -175,7 +182,7 @@ open class DiagramBox : ComponentActivity() {
                     .weight(1f), elevation = 5.dp) {
                     Image(painter = painterResource(id = R.drawable.summer), contentDescription ="Image", contentScale = ContentScale.Crop,modifier = Modifier.fillMaxHeight() )
                     Text(
-                        text = "March", color = Color.Transparent, modifier = Modifier
+                        text = "March", color =  Color.Transparent, modifier = Modifier
                             .padding(0.dp)
                             .background(
                                 Brush.horizontalGradient(
@@ -206,7 +213,7 @@ open class DiagramBox : ComponentActivity() {
                 {
                     Image(painter = painterResource(id = R.drawable.may), contentDescription ="Image", contentScale = ContentScale.Crop,modifier = Modifier.fillMaxHeight() )
                     Text(
-                        text = "April", color = Color.Transparent, modifier = Modifier
+                        text = "April",color = Color.Transparent, modifier = Modifier
                             .padding(0.dp)
                             .background(
                                 Brush.horizontalGradient(
@@ -351,6 +358,14 @@ open class DiagramBox : ComponentActivity() {
 //                }
             }
 
+
+    }
+    @Preview
+    @Composable
+
+    fun MyPreview(){
+        Greetings(str = "Hello", rememberNavController())
+//        )
 
     }
     @Composable
